@@ -13,7 +13,8 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 import os
 
 app = Flask(__name__)  # Create instance of the Flask class
-app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
+
 
 ckeditor = CKEditor(app)  # Initialise CKEditor for text editing and integrating it with Flask app.
 Bootstrap5(app)  # Initialise Bootstrap
@@ -43,7 +44,7 @@ class Base(DeclarativeBase):
     pass
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URO", 'sqlite:///posts.db')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -259,4 +260,4 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5002)
+    app.run(debug=False)
