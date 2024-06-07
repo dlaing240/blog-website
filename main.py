@@ -100,12 +100,6 @@ def admin_only(f):
             return abort(code=404)
     return decorated_function
 
-# Admin user for demonstration:
-# email: Admin@email
-# username: Admin
-# password: demo
-
-
 # Hash the user's password when creating a new user using Werkzeug
 @app.route('/register', methods=['GET', 'POST'])
 def register():
